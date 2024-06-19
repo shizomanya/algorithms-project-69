@@ -42,32 +42,38 @@ def compute_tf_idf(doc_term_count, idf):
 def search(docs, query):
     if not docs:
         return []
-    
+
     inverted_index, doc_term_counts = build_inverted_index(docs)
     total_docs = len(docs)
     idf = compute_idf(inverted_index, total_docs)
     query_terms = preprocess_text(query)
-    
+
     if not query_terms:
         return []
-    
+
     doc_scores = defaultdict(float)
 
     for term in query_terms:
         if term in inverted_index:
             for doc_id in inverted_index[term]:
-                doc_index = next(i for i, doc in enumerate(docs) if doc['id'] == doc_id)
+                doc_index = None
+                for i, doc in enumerate(docs):
+                    if doc['id'] == doc_id:
+                        doc_index = i
+                        break
                 doc_tf_idf = compute_tf_idf(doc_term_counts[doc_index][1], idf)
                 doc_scores[doc_id] += doc_tf_idf.get(term, 0)
-    
+
     sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
-    
+
     return [doc_id for doc_id, _ in sorted_docs]
 
 
 def main():
     # Пример использования
-    doc1 = {'id': 'doc1', 'text': "I can't shoot straight unless I've had a pint!"}
+    doc1 = {
+        'id': 'doc1', 'text': "I can't shoot straight unless I've had a pint!"
+    }
     doc2 = {'id': 'doc2', 'text': "Don't shoot shoot shoot that thing at me."}
     doc3 = {'id': 'doc3', 'text': "I'm your shooter."}
     docs = [doc1, doc2, doc3]
@@ -75,6 +81,7 @@ def main():
     print(search(docs, 'shoot at me'))  # ['doc2', 'doc1']
     print(search(docs, 'pint!'))        # ['doc1']
     print(search([], 'shoot'))          # []
+
 
 if __name__ == '__main__':
     main()
