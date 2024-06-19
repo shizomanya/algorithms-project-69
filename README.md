@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/shizomanya/algorithms-project-69/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/shizomanya/algorithms-project-69/actions)
-
+[![Python CI](https://github.com/shizomanya/algorithms-project-69/actions/workflows/ci.yaml/badge.svg)](https://github.com/shizomanya/algorithms-project-69/actions/workflows/ci.yaml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f4707bec25cb9d1e4064/maintainability)](https://codeclimate.com/github/shizomanya/algorithms-project-69/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f4707bec25cb9d1e4064/test_coverage)](https://codeclimate.com/github/shizomanya/algorithms-project-69/test_coverage)
 # Search Engine
 
 This project implements a simple search engine that can perform both exact and fuzzy searches on a collection of documents. The search engine supports text preprocessing to handle punctuation and case insensitivity and uses the TF-IDF metric to rank search results by relevance.
